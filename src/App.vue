@@ -1,28 +1,47 @@
 <template>
   <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    <h1 @click="reset">{{ title }}</h1>
+    <MinesweeperVue ref="minesweeper" :status.sync="status"></MinesweeperVue>
   </div>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import MinesweeperVue from './components/Minesweeper.vue'
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
+    MinesweeperVue
+  },
+  data() {
+    return {
+      status: 'ready'
+    }
+  },
+  computed: {
+    title() {
+      return this.status === 'ready' ? '✨minesweeper✨' : this.status === 'win' ? '✨You Win✨' : '💥Game Over💥'
+    }
+  },
+  methods: {
+    reset() {
+      this.$refs.minesweeper.reset();
+    }
   }
 }
 </script>
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+#app h1 {
+  width: 100%;
   text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
+  color: darkcyan;
+  cursor: pointer;
 }
 </style>
