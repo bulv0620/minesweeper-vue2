@@ -71,6 +71,10 @@ export default {
             if (lattice.isOpened || lattice.isMarked || this.status !== 'ready') {
                 return;
             }
+            if (lattice.isMine) {
+                this.gameover(lattice);
+                lattice.mine_red = true;
+            }
             lattice.isOpened = true;
             if (lattice.minesAround === 0) {
                 this.getAroundPosList(lattice).forEach(item => {
@@ -86,10 +90,6 @@ export default {
             }
             if (lattice.isOpened) {
                 this.autoReveal(lattice)
-            }
-            if (lattice.isMine) {
-                this.gameover(lattice);
-                lattice.mine_red = true;
             }
             this.reveal(lattice);
         },
